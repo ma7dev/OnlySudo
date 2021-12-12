@@ -1,0 +1,7 @@
+config.json
+node_modules
+.vscode
+.env
+ca-certificate.crt
+*.jit
+*.pt
