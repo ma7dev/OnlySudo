@@ -15,7 +15,7 @@ const client = new Client({
         username: `${process.env.TWITCH_BOT_USERNAME}`,
         password: `oauth:${process.env.TWITCH_ACCESS_TOKEN}`,
     },
-    channels: [`${process.env.TWITCH_CHANNEL}`, "migren2009"],
+    channels: [`${process.env.TWITCH_CHANNEL}` ],
 });
 
 // commands

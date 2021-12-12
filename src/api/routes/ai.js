@@ -42,6 +42,20 @@ router.post("/style_transfer", (req, res) => {
     launchProcess(res, args);
 });
 
+router.post("/pixel", (req, res) => {
+    const args = [
+        getProgramPath("pixel"),
+        `--url`,
+        `${req.body.url}`,
+        `--palette`,
+        `${req.body.palette}`,
+        `--filename`,
+        `${req.body.filename}`,
+    ];
+
+    launchProcess(res, args);
+});
+
 router.post("/arcane", (req, res) => {
     const args = [
         getProgramPath("ArcaneGAN"),
