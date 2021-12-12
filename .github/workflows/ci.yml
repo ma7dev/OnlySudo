@@ -1,7 +1,7 @@
 # credits:
 # - CI with Jest: https://joelhooks.com/jest-and-github-actions
 name: CI
-on: pull_request
+on: push
 jobs:
     test:
         name: Test
