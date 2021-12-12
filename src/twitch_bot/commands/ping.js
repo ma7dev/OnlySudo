@@ -2,6 +2,6 @@ module.exports = {
     name: "ping",
     description: "Ping!",
     async execute(client, channel, context, msg, args) {
-        client.say(channel,"Pong.");
+        client.say(channel, "Pong.");
     },
 };

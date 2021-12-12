@@ -1,13 +1,11 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('')
-		.setDescription('')
-		.addUserOption(option => { 
-            return option.setName('')
-            .setDescription('')
+    data: new SlashCommandBuilder()
+        .setName("")
+        .setDescription("")
+        .addUserOption((option) => {
+            return option.setName("").setDescription("");
         }),
-	async execute(interaction) {
-	},
+    async execute(interaction) {},
 };

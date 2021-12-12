@@ -1,0 +1,76 @@
+# credits:
+# - CI with Jest: https://joelhooks.com/jest-and-github-actions
+name: CI
+on: pull_request
+jobs:
+    test:
+        name: Test
+        # setup global configurations
+        strategy:
+            matrix:
+                node-version: [12.x]
+                platform: [ubuntu-latest, windows-latest, macos-latest]
+        # Build OS
+        runs-on: ${{ matrix.platform }}
+        # CI
+        steps:
+            - uses: actions/checkout@v2
+            # select nodejs v12
+            - name: Test using Node.js v${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            # install packages
+            - name: Install Packages
+              run: npm i
+            # create a config file
+            # - name: Create Config File
+            #   uses: "DamianReeves/write-file-action@v1.0"
+            #   with:
+            #       path: ./config.json
+            #       contents: '{"BITLY_TOKEN": "${{ secrets.BITLY_TOKEN }}","TWITCH_TOKEN": "${{ secrets.TWITCH_TOKEN }}","DISCORD_TOKEN": "${{ secrets.DISCORD_TOKEN }}"}'
+            #       write-mode: overwrite
+            # # run tests
+            # - name: Run tests
+            #   run: npm run test:ci
+            # # conditions with test fails or succeeds
+            # - name: Tests ✅
+            #   shell: bash
+            #   if: ${{ success() }}
+            #   run: |
+            #       curl \
+            #         -X POST \
+            #         -H 'Accept: application/vnd.github.v3+json' \
+            #         -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            #         -d '{
+            #           "context": "tests",
+            #           "state": "success",
+            #           "description": "Tests passed",
+            #           "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            #         }' \
+            #         https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+            # - name: Tests 🚨
+            #   if: ${{ failure() }}
+            #   shell: bash
+            #   run: |
+            #       curl \
+            #         -X POST \
+            #         -H 'Accept: application/vnd.github.v3+json' \
+            #         -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            #         -d '{
+            #           "context": "tests",
+            #           "state": "failure",
+            #           "description": "Tests failed",
+            #           "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            #         }' \
+            #         https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}
+            # Code Coverage
+            # - name: Code Coverage
+            #   uses: codecov/codecov-action@v1
+            #   with:
+            #       token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+            # remove the config file
+            # - name: Remove Config File
+            #   uses: JesseTG/rm@v1.0.2
+            #   with:
+            #       path: "config.json"

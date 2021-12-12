@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const rankSchema = new mongoose.Schema({
     name: { type: String, required: true },
     roleId: { type: String, required: true },
     channelId: { type: String, required: true },
-    threshold: { type: Number, required: true }
+    threshold: { type: Number, required: true },
 });
 
 // streamerSchema.methods.stream = function stream() {
@@ -14,6 +14,6 @@ const rankSchema = new mongoose.Schema({
 //     console.log(greeting);
 // };
 
-module.exports = { 
-    Rank: mongoose.model('Ranks', rankSchema) 
-}
+module.exports = {
+    Rank: mongoose.model("Ranks", rankSchema),
+};

@@ -1,13 +1,13 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('server')
-		.setDescription('Display info about this server.'),
-	async execute(client, interaction) {
-		return interaction.reply(
+    data: new SlashCommandBuilder()
+        .setName("server")
+        .setDescription("Display info about this server."),
+    async execute(client, interaction) {
+        return interaction.reply(
             `Server name: ` +
-            `${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`
+                `${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`
         );
-	},
+    },
 };
