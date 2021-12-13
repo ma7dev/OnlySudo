@@ -2,7 +2,7 @@ import argparse
 import os
 import numpy as np
 from skimage import io
-from PIL import Image
+from PIL import Image, ImageOps
 import requests
 from io import BytesIO
 import numpy as np
@@ -29,22 +29,26 @@ if __name__ == "__main__":
         print('Need url or streamer name!')
         exit()
 
-    scale = 14 
+    args.size = 1024
+    args.factor = 2
+
+    print('start')
 
     response = requests.get(args.url, stream = True)
-    image = np.asarray(Image.open(BytesIO(response.content)).convert("RGB"))
+    img = Image.open(BytesIO(response.content)).convert("RGB")
+    img = ImageOps.fit(img, (args.size, args.size), centering=(0.5, 0.5))
+    image = np.asarray(img)
 
     out = Pyx(
-        factor=scale, 
+        factor=args.factor, 
         palette=args.palette,
-        upscale = scale,
-        depth=2,
-        # dither="none", 
-        # alpha=.6, 
-        # boost=True
+        upscale = args.factor,
+        depth=2
     ).fit_transform(image)
 
     out = cv2.resize(out, (image.shape[1],image.shape[0]), interpolation=cv2.INTER_NEAREST)
     out = np.concatenate([image, out], axis=1)
 
     cv2.imwrite(output_path, cv2.cvtColor(out, cv2.COLOR_BGR2RGB))
+
+    print('Done!')

@@ -7,7 +7,7 @@ import torch, PIL
 
 from tqdm.notebook import tqdm
 from glob import glob
-from PIL import Image
+from PIL import Image, ImageOps
 import requests
 from io import BytesIO
 import numpy as np
@@ -118,37 +118,36 @@ if __name__ == "__main__":
 
     project_path = "/home/alotaima/Projects/side/onlysudo/src/ai/ArcaneGAN"
     args.outdir = '/src/api/public/ai/arcane'
-    
+    args.size = 1024
+
     if args.url == '':
         print('Need url or streamer name!')
         exit()
-    size = 256
-    mtcnn = MTCNN(image_size=256, margin=80)
+        
+    mtcnn = MTCNN(image_size=args.size, margin=80)
 
     means = [0.485, 0.456, 0.406]
     stds = [0.229, 0.224, 0.225]
 
-    t_stds = torch.tensor(stds).cuda().half()[:,None,None]
-    t_means = torch.tensor(means).cuda().half()[:,None,None]
+    t_stds = torch.tensor(stds).cuda()[:,None,None]
+    t_means = torch.tensor(means).cuda()[:,None,None]
 
     img_transforms = transforms.Compose([                        
                 transforms.ToTensor(),
                 transforms.Normalize(means,stds)])
 
-    version = '0.2' #@param ['0.1','0.2']
+    version = '0.3' #@param ['0.1','0.2']
     model_path = f'{project_path}/ArcaneGANv{version}.jit' 
 
     root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
     output_path = f"{root_path}{args.outdir}/{args.filename}"
 
-    model = torch.jit.load(model_path).eval().cuda().half()
+    model = torch.jit.load(model_path).eval().cuda()
     
     response = requests.get(args.url, stream = True)
-    img = Image.open(BytesIO(response.content))
-    width, height = img.size
-    max_ = max(width,height)
-    if max_ > 1080:
-        ratio = max_ / 1080
-        img = img.resize((int(width*ratio),int(height*ratio)))
+    img = Image.open(BytesIO(response.content)).convert('RGB') 
+    img = ImageOps.fit(img, (args.size, args.size), centering=(0.5, 0.5))
 
     process(output_path,mtcnn,model,img)
+    
+    print("Done!")

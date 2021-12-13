@@ -3,7 +3,8 @@ import os
 import time
 import torch
 
-from PIL import Image
+from PIL import Image, ImageOps
+from torchvision import transforms
 import requests
 from io import BytesIO
 import numpy as np
@@ -25,23 +26,20 @@ if __name__ == "__main__":
         print('Need url or streamer name!')
         exit()
 
-    size = 512
+    args.size = 1024
 
-    model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator").eval()
-    face2paint = torch.hub.load("bryandlee/animegan2-pytorch:main", "face2paint", size=size)
+    print('start')
+
+    model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator", device="cuda").eval()
+    face2paint = torch.hub.load("bryandlee/animegan2-pytorch:main", "face2paint", device="cuda", size=args.size)
     
     response = requests.get(args.url, stream = True)
     img = Image.open(BytesIO(response.content)).convert("RGB")
-    width, height = img.size
-    max_ = max(width,height)
-    if max_ > 1080:
-        ratio = max_ / 1080
-        img = img.resize((int(width*ratio),int(height*ratio)))
+    img = ImageOps.fit(img, (args.size, args.size), centering=(0.5, 0.5))
 
     out = face2paint(model, img)
-
-    img = img.resize((size,size))
     
     out = np.concatenate([img, out], axis=1)
     cv2.imwrite(output_path, cv2.cvtColor(out, cv2.COLOR_BGR2RGB))
+    
     print("Done!")

@@ -10,7 +10,7 @@ module.exports = {
         const filename = `${makeid(5)}.jpg`,
             streamer = channel.replace("#", "");
 
-        let palette = 8;
+        let palette = 10;
 
         let url = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${streamer}.jpg`;
         if (args.length > 0) {
