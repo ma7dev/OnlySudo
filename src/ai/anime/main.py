@@ -17,7 +17,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     project_path = "/home/alotaima/Projects/side/onlysudo/src/ai/anime"
-    args.outdir = '/src/api/public/ai/anime'
+    args.outdir = '/src/server/public/ai/anime'
 
     root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
     output_path = f"{root_path}{args.outdir}/{args.filename}"

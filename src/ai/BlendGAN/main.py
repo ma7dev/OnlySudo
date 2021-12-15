@@ -40,8 +40,8 @@ if __name__ == '__main__':
     args.ckpt = f'{project_path}/pretrained_models/blendgan.pt'
     args.psp_encoder_ckpt = f'{project_path}/pretrained_models/psp_encoder.pt'
     args.style_img_path = f'{project_path}/test_imgs/style_imgs/'
-    args.add_weight_index = 6
-    args.outdir = '/src/api/public/ai/style_transfer'
+    args.add_weight_index = 10
+    args.outdir = '/src/server/public/ai/style_transfer'
     args.channel_multiplier = 2
     args.latent = 512
     args.n_mlp = 8

@@ -19,7 +19,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     project_path = "/home/alotaima/Projects/side/onlysudo/src/ai/pyxelate"
-    args.outdir = '/src/api/public/ai/pixel'
+    args.outdir = '/src/server/public/ai/pixel'
     # args.outdir = '/api/public/ai/pixel'
 
     root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])

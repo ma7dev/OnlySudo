@@ -117,7 +117,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     project_path = "/home/alotaima/Projects/side/onlysudo/src/ai/ArcaneGAN"
-    args.outdir = '/src/api/public/ai/arcane'
+    args.outdir = '/src/server/public/ai/arcane'
     args.size = 1024
 
     if args.url == '':
