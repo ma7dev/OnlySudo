@@ -51,7 +51,7 @@ if __name__ == '__main__':
         exit()
     
     outdir = args.outdir
-    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
+    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
     output_path = f"{root_path}{args.outdir}/{args.filename}"
     style_img_paths = sorted(glob.glob(os.path.join(args.style_img_path, '*.*')))[:]
 

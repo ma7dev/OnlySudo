@@ -22,7 +22,7 @@ if __name__ == "__main__":
     args.outdir = '/src/server/public/ai/pixel'
     # args.outdir = '/api/public/ai/pixel'
 
-    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
+    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
     output_path = f"{root_path}{args.outdir}/{args.filename}"
     
     if args.url == '':

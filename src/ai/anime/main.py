@@ -19,7 +19,7 @@ if __name__ == "__main__":
     project_path = "/home/alotaima/Projects/side/onlysudo/src/ai/anime"
     args.outdir = '/src/server/public/ai/anime'
 
-    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
+    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
     output_path = f"{root_path}{args.outdir}/{args.filename}"
 
     if args.url == '':
@@ -42,4 +42,4 @@ if __name__ == "__main__":
     out = np.concatenate([img, out], axis=1)
     cv2.imwrite(output_path, cv2.cvtColor(out, cv2.COLOR_BGR2RGB))
     
-    print("Done!")
+    print(f"Done! {output_path}")

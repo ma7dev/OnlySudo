@@ -139,7 +139,7 @@ if __name__ == "__main__":
     version = '0.3' #@param ['0.1','0.2']
     model_path = f'{project_path}/ArcaneGANv{version}.jit' 
 
-    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-2])
+    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
     output_path = f"{root_path}{args.outdir}/{args.filename}"
 
     model = torch.jit.load(model_path).eval().cuda()
