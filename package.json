@@ -1,46 +1,46 @@
 {
-  "name": "onlysudo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "jest --watch",
-    "test:ci": "jest --ci --reporters='default' --reporters='./github-actions-reporter' --coverage && codecov",
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sudogroup/onlysudo.git"
-  },
-  "author": "Mazen Alotaibi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sudogroup/onlysudo/issues"
-  },
-  "homepage": "https://github.com/sudogroup/onlysudo#readme",
-  "dependencies": {
-    "@discordjs/builders": "^0.9.0",
-    "@discordjs/rest": "^0.1.0-canary.0",
-    "axios": "^0.24.0",
-    "discord-api-types": "^0.25.2",
-    "discord.js": "^13.3.1",
-    "dotenv": "^10.0.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.1",
-    "jest": "^27.4.3",
-    "nodemon": "^2.0.15",
-    "tmi.js": "^1.8.5"
-  },
-  "jest": {
-    "verbose": false,
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
-  },
-  "devDependencies": {
-    "eslint": "^8.4.1"
-  }
+    "name": "onlysudo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "jest --watch",
+        "test:ci": "jest --ci --reporters='default' --reporters='./github-actions-reporter' --coverage && codecov"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sudogroup/onlysudo.git"
+    },
+    "author": "Mazen Alotaibi",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/sudogroup/onlysudo/issues"
+    },
+    "homepage": "https://github.com/sudogroup/onlysudo#readme",
+    "dependencies": {
+        "@discordjs/builders": "^0.9.0",
+        "@discordjs/rest": "^0.1.0-canary.0",
+        "axios": "^0.24.0",
+        "discord-api-types": "^0.25.2",
+        "discord.js": "^13.3.1",
+        "dotenv": "^10.0.0",
+        "ejs": "^3.1.6",
+        "express": "^4.17.1",
+        "jest": "^27.4.3",
+        "nodemon": "^2.0.15",
+        "tmi.js": "^1.8.5"
+    },
+    "jest": {
+        "verbose": false,
+        "moduleDirectories": [
+        "node_modules",
+        "src"
+        ]
+    },
+    "devDependencies": {
+        "eslint": "^8.4.1"
+    }
 }
