@@ -1,5 +1,5 @@
 {
-  "name": "asc_robot",
+  "name": "onlysudo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,39 +7,30 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "prettier --write src/* --tab-width 4",
-    "start": "node server",
-    "dep": "pm2 start src/index",
     "test": "jest --watch",
     "test:ci": "jest --ci --reporters='default' --reporters='./github-actions-reporter' --coverage && codecov",
-    "stop": "pm2 stop src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Arabic-streaming-community/asc_robot.git"
+    "url": "git+https://github.com/sudogroup/onlysudo.git"
   },
   "author": "Mazen Alotaibi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Arabic-streaming-community/asc_robot/issues"
+    "url": "https://github.com/sudogroup/onlysudo/issues"
   },
-  "homepage": "https://github.com/Arabic-streaming-community/asc_robot#readme",
+  "homepage": "https://github.com/sudogroup/onlysudo#readme",
   "dependencies": {
     "@discordjs/builders": "^0.9.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "axios": "^0.24.0",
-    "codecov": "^3.8.3",
     "discord-api-types": "^0.25.2",
     "discord.js": "^13.3.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "jest": "^27.4.3",
-    "mongodb": "^4.2.1",
-    "mongoose": "^6.1.0",
     "nodemon": "^2.0.15",
-    "prettier": "^2.5.1",
-    "sqlite3": "^4.2.0",
     "tmi.js": "^1.8.5"
   },
   "jest": {

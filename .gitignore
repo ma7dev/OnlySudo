@@ -6,3 +6,4 @@ ca-certificate.crt
 *.jit
 *.pt
 *.zip
+package-lock.json
