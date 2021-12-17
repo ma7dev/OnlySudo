@@ -6,9 +6,6 @@ module.exports = {
         for(let i=0; i<10; i++) {
             message.push(args);
         }
-        client.say(
-            channel,
-            `${message.join(" ")}`
-        ).catch(err => console.log(err));
+        return client.say(channel,`${message.join(" ")}`).catch(err => console.log(err));
     },
 };

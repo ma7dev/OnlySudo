@@ -10,6 +10,8 @@ module.exports = {
             target_args = {
                 message,
             };
-        postRequest(client, channel, target_url, target_args);
+        postRequest(target_url, target_args, (data) => {
+            return client.say(channel,data).catch(err => console.log(err));
+        });
     },
 };

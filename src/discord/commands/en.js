@@ -19,17 +19,11 @@ module.exports = {
                 message,
             };
         await interaction.deferReply();
-        postRequest(
-            client,
-            interaction,
-            target_url,
-            target_args,
-            function (data) {
-                return interaction.editReply({
-                    content: data,
-                    ephemeral: true,
-                });
-            }
-        );
+        postRequest(target_url, target_args, (data) => {
+            return interaction.editReply({
+                content: data,
+                ephemeral: true,
+            });
+        });
     },
 };

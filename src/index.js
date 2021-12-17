@@ -1,14 +1,16 @@
 require('dotenv').config({path:'../.env'});
 
-process.env.BASE_URL = 'http://localhost:5000'
-channels = ['sudomaze', '1dzo']
+process.env.BASE_URL = 'https://7c6e-96-44-8-65.ngrok.io'
+channels = ['sudomaze', 'stuck_overflow']
 
 const express = require('express'),
     fs = require('fs'),
     { EventEmitter } = require("events");
 
 const {TwitchBot} = require('./TwitchBot'),
-    {DiscordBot} = require('./DiscordBot');
+    {DiscordBot} = require('./DiscordBot'),
+    {getTwitchHook} = require('./hooks/twitch'),
+    {getServerHook} = require('./hooks/server');
 
 const app = express(),
 port = process.env.PORT || 4000;
@@ -46,5 +48,17 @@ app.listen(port, async () => {
         }
     }
     console.log('ready!')
+    await delay(1000);
+    // server api webhooks
+    getServerHook(emitter, twitchBot, discordBot);
+    // twitch api webhooks
+    getTwitchHook(emitter, twitchBot, discordBot);
+    // testing webhooks
+    // emitter.emit('stream.online', ({
+    //     event: {
+    //         broadcaster_user_login: 'sudomaze'
+    //     }
+    // }))
+    // emitter.emit('streamer:warning', ({discordId: '263980320926334976', message: 'test'}))
 
 });

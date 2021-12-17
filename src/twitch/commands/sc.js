@@ -13,9 +13,6 @@ module.exports = {
                 url = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${args[0]}.jpg`;
             }
         }
-        client.say(
-            channel,
-            url
-        );
+        return client.say(channel,url);
     },
 };

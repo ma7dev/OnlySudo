@@ -4,6 +4,9 @@ const fs = require('fs'),
     discord  = require("discord.js"),
     { Collection, Intents } = require('discord.js');
 
+function getDate() {
+    return Math.floor(Date.now()/ 1000);
+}
 class DiscordBot {
     constructor() {
         this.guild = null;
@@ -67,6 +70,14 @@ class DiscordBot {
         const channel = this.guild.channels.cache.get(channelId);
         channel.send(message);
 
+    }
+    sendDM(discordId, message) {
+        const user = this.client.users.cache.get(discordId);
+        user.send(message);
+    }
+    log(message) {
+        console.log(message);
+        // this.logChannel.send(`<t:${getDate()}:f> ${message}`);
     }
 }
 

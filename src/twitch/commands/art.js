@@ -1,7 +1,7 @@
 require("dotenv").config({ path: "../../../.env" });
 
 const { makeid, getRandomInt } = require("../utils");
-const { postRequestMore } = require("../../api/server");
+const { postRequest } = require("../../api/server");
 
 module.exports = {
     name: "art",
@@ -34,6 +34,9 @@ module.exports = {
                 `Processing: ${filename} - style=${style_selected}`,
                 `Check: ${process.env.BASE_URL}${target_url}/${filename}`,
             ];
-        postRequestMore(client, channel, target_url, target_args, target_msg);
+        await client.say(channel, target_msg[0]).catch(err => console.log(err))
+        postRequest(target_url, target_args, (data) => {
+            return client.say(channel, target_msg[1]).catch(err => console.log(err));
+        });
     },
 };

@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 const { makeid } = require("../utils");
-const { postRequestMore } = require("../../api/server");
+const { postRequest } = require("../../api/server");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -47,18 +47,15 @@ module.exports = {
                 `Check: ${process.env.BASE_URL}${target_url}/${filename}`,
             ];
         await interaction.deferReply();
-        postRequestMore(
-            client,
-            interaction,
-            target_url,
-            target_args,
-            target_msg,
-            function (data) {
-                return interaction.editReply({
-                    content: data,
-                    ephemeral: true,
-                });
-            }
-        );
+        await interaction.editReply({
+            content: target_msg[0],
+            ephemeral: true,
+        });
+        postRequest(target_url, target_args, (data) => {
+            return interaction.editReply({
+                content: target_msg[1],
+                ephemeral: true,
+            });
+        });
     },
 };
