@@ -106,6 +106,30 @@ class Router {
 
             launchProcess(res, args);
         });
+
+        this.router.post("/tts", (req, res) => {
+            const args = [
+                getProgramPath("tts"), 
+                `--message`, 
+                `${req.body.message}`,
+                `--filename`,
+                `${req.body.filename}`,
+            ];
+
+            launchProcess(res, args);
+        });
+
+        this.router.post("/klaam", (req, res) => {
+            const args = [
+                getProgramPath("klaam"), 
+                `--message`, 
+                `${req.body.message}`,
+                `--filename`,
+                `${req.body.filename}`,
+            ];
+
+            launchProcess(res, args);
+        });
     }
 }
 module.exports = { path: "/ai", Router };

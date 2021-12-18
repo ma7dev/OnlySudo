@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= username %></title>
+  </head>
+  <body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        console.log("tts:<%= username %> --- '/ai/tts/<%= username %>.wav'")
+        socket.on('tts:<%= username %>', (url) => {
+            console.log("tts:<%= username %> --- '" + url + "'")
+            var audio = new Audio(`${url}?_=${new Date().getTime()}`);
+            setTimeout(audio.play(), 1000);
+        });
+    </script>
+  </body>
+</html>

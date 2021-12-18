@@ -10,7 +10,8 @@ module.exports = {
         )
             return;
         console.log(context.username);
-        if (context.username != "sudomaze") return;
+        if (context.username != "sudomaze" 
+        && context.username != 'mp9omar_') return;
         // pre-process the command
         const args = msg.substring(process.env.PREFIX.length).split(/ +/), // remove process.env.PREFIX and split the argument has multiple arguments
             commandName = args.shift().toLowerCase(); // get command and turn it to lowercase

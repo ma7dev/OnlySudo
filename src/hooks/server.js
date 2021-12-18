@@ -5,6 +5,5 @@ module.exports = {
         emitter.on('server:logging', (message) => {
             discordBot.log(message);
         })
-
     }
 };

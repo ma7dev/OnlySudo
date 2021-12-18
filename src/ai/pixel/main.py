@@ -20,7 +20,6 @@ if __name__ == "__main__":
 
     project_path = "/home/alotaima/Projects/side/onlysudo/src/ai/pyxelate"
     args.outdir = '/src/server/public/ai/pixel'
-    # args.outdir = '/api/public/ai/pixel'
 
     root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
     output_path = f"{root_path}{args.outdir}/{args.filename}"

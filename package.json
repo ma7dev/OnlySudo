@@ -31,13 +31,14 @@
         "express": "^4.17.1",
         "jest": "^27.4.3",
         "nodemon": "^2.0.15",
+        "socket.io": "^4.4.0",
         "tmi.js": "^1.8.5"
     },
     "jest": {
         "verbose": false,
         "moduleDirectories": [
-        "node_modules",
-        "src"
+            "node_modules",
+            "src"
         ]
     },
     "devDependencies": {

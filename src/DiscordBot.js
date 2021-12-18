@@ -8,7 +8,7 @@ function getDate() {
     return Math.floor(Date.now()/ 1000);
 }
 class DiscordBot {
-    constructor() {
+    constructor(emitter) {
         this.guild = null;
         this.twitchBadge = null;
 
@@ -31,7 +31,7 @@ class DiscordBot {
                 Intents.FLAGS.DIRECT_MESSAGE_TYPING,
             ] 
         });
-
+        this.client.emitter = emitter;
 
         // commands
         this.client.commands = new Collection();

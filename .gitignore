@@ -7,3 +7,5 @@ ca-certificate.crt
 *.pt
 *.zip
 package-lock.json
+*.pth
+__pycache__

@@ -1,19 +1,24 @@
 require('dotenv').config({path:'../.env'});
 
-process.env.BASE_URL = 'https://7c6e-96-44-8-65.ngrok.io'
-channels = ['sudomaze', 'stuck_overflow']
+process.env.BASE_URL = 'https://13f4-96-44-8-65.ngrok.io'
+channels = ['sudomaze', 'mp9omar_']
 
 const express = require('express'),
     fs = require('fs'),
-    { EventEmitter } = require("events");
+    http = require('http'),
+    { EventEmitter } = require("events"),
+    { Server } = require("socket.io");
 
 const {TwitchBot} = require('./TwitchBot'),
     {DiscordBot} = require('./DiscordBot'),
     {getTwitchHook} = require('./hooks/twitch'),
-    {getServerHook} = require('./hooks/server');
+    {getServerHook} = require('./hooks/server'),
+    {getSocketHook} = require('./hooks/socket');
 
 const app = express(),
-port = process.env.PORT || 4000;
+    server = http.createServer(app),
+    io = new Server(server),
+    port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(express.raw({ type: 'application/json' })); // Need raw message body for signature verification
@@ -33,10 +38,10 @@ for (const file of routesFiles) {
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-app.listen(port, async () => {
+server.listen(port, async () => {
     console.log(`localhost:${port}`)
-    const twitchBot = new TwitchBot(channels),
-        discordBot = new DiscordBot();
+    const twitchBot = new TwitchBot(channels, emitter),
+        discordBot = new DiscordBot(emitter);
     twitchBot.start();
     discordBot.start();
     console.log('starting...')
@@ -49,9 +54,9 @@ app.listen(port, async () => {
     }
     console.log('ready!')
     await delay(1000);
-    // server api webhooks
+    // hooks
+    getSocketHook(io, emitter, twitchBot, discordBot);
     getServerHook(emitter, twitchBot, discordBot);
-    // twitch api webhooks
     getTwitchHook(emitter, twitchBot, discordBot);
     // testing webhooks
     // emitter.emit('stream.online', ({

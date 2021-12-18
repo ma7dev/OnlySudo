@@ -5,7 +5,7 @@ const fs = require('fs'),
     { Collection } = require('discord.js');
 
 class TwitchBot {
-    constructor(channels) {
+    constructor(channels, emitter) {
         console.log(channels)
         this.client = new tmi.Client({
             options: { 
@@ -22,7 +22,7 @@ class TwitchBot {
             },
             channels
         });
-
+        this.client.emitter = emitter
         // commands
         this.client.commands = new Collection();
 
