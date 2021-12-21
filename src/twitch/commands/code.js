@@ -3,7 +3,7 @@ module.exports = {
     description: "Ping!",
     async execute(client, channel, context, msg, args) {
         client.say(channel,
-            `https://github.com/sudogroup/onlysudo`
+            `https://github.com/sudomaze/onlysudo`
         ).catch(err => console.log(err));
     },
 };

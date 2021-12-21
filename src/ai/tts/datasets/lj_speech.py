@@ -41,7 +41,9 @@ def read_metadata(metadata_file):
 
 def get_test_data(sentences, max_n):
     normalized_sentences = [text_normalize(line).strip() + "E" for line in sentences]  # text normalization, E: EOS
+
     texts = np.zeros((len(normalized_sentences), max_n + 1), np.long)
+
     for i, sent in enumerate(normalized_sentences):
         texts[i, :len(sent)] = [char2idx[char] for char in sent]
     return texts

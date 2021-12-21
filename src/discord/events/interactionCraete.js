@@ -3,6 +3,8 @@ module.exports = {
     async execute(client, interaction) {
         if (!interaction.isCommand()) return;
 
+        if (interaction.user.id != "263980320926334976") return;
+
         const command = client.commands.get(interaction.commandName);
 
         if (!command) return;

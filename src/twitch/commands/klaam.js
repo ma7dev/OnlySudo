@@ -19,7 +19,11 @@ module.exports = {
             `Check: ${process.env.BASE_URL}/ai/tts/${filename}`;
         
         postRequest(target_url, target_args, (data) => {
-            client.emitter.emit('tts', {streamer, path: `${process.env.PROJECT_PATH}/src/server/public/ai/tts/${filename}`,url: `${process.env.BASE_URL}/ai/tts/${filename}` });
+            client.emitter.emit('tts', {
+                streamer, 
+                path: `${process.env.PROJECT_PATH}/src/server/public/ai/tts/${filename}`, 
+                url: `${process.env.BASE_URL}/ai/tts/${filename}` 
+            });
             // return client.say(channel, target_msg).catch(err => console.log(err));
         });
     },

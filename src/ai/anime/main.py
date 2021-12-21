@@ -9,6 +9,8 @@ import requests
 from io import BytesIO
 import numpy as np
 import cv2
+from torchvision.transforms.functional import to_tensor, to_pil_image
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -25,19 +27,39 @@ if __name__ == "__main__":
     if args.url == '':
         print('Need url or streamer name!')
         exit()
-
+    
     args.size = 1024
+    side_by_side = False
+    device = "cuda"
 
     print('start')
 
-    model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator", device="cuda").eval()
-    face2paint = torch.hub.load("bryandlee/animegan2-pytorch:main", "face2paint", device="cuda", size=args.size)
+    # model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator", pretrained="celeba_distill", device="cuda").eval()
+    # model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator", pretrained="face_paint_512_v1", device="cuda").eval()
+    model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator", pretrained="face_paint_512_v2", device="cuda").eval() # default
+    # model = torch.hub.load("bryandlee/animegan2-pytorch:main", "generator", pretrained="paprika", device="cuda").eval()
     
     response = requests.get(args.url, stream = True)
     img = Image.open(BytesIO(response.content)).convert("RGB")
     img = ImageOps.fit(img, (args.size, args.size), centering=(0.5, 0.5))
 
-    out = face2paint(model, img)
+    w, h = img.size
+    s = min(w, h)
+    img = img.crop(((w - s) // 2, (h - s) // 2, (w + s) // 2, (h + s) // 2))
+    img = img.resize((args.size, args.size), Image.LANCZOS)
+
+    with torch.no_grad():
+        input = to_tensor(img).unsqueeze(0) * 2 - 1
+        output = model(input.to(device)).cpu()[0]
+
+        if side_by_side:
+            output = torch.cat([input[0], output], dim=2)
+
+        output = (output * 0.5 + 0.5).clip(0, 1)
+
+    out = to_pil_image(output)
+    # out = face2paint(model, img, device="cuda", size=args.size)
+
     
     out = np.concatenate([img, out], axis=1)
     cv2.imwrite(output_path, cv2.cvtColor(out, cv2.COLOR_BGR2RGB))

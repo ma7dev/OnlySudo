@@ -130,6 +130,18 @@ class Router {
 
             launchProcess(res, args);
         });
+
+        this.router.post("/paint", (req, res) => {
+            const args = [
+                getProgramPath("paint"),
+                `--caption`,
+                `${req.body.caption}`,
+                `--filename`,
+                `${req.body.filename}`,
+            ];
+
+            launchProcess(res, args);
+        });
     }
 }
 module.exports = { path: "/ai", Router };

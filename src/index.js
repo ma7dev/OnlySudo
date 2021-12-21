@@ -1,7 +1,7 @@
 require('dotenv').config({path:'../.env'});
 
-process.env.BASE_URL = 'https://13f4-96-44-8-65.ngrok.io'
-channels = ['sudomaze', 'mp9omar_']
+process.env.BASE_URL = 'https://8a7d-96-44-8-65.ngrok.io'
+channels = ['sudomaze', 'soulsev']
 
 const express = require('express'),
     fs = require('fs'),

@@ -49,13 +49,18 @@ if __name__ == "__main__":
 
     sentences = [normalized_sentence]
     max_N = len(normalized_sentence)
+    # print(max_N)
     L = torch.from_numpy(get_test_data(sentences, max_N))
+    # print(L.shape)
     zeros = torch.from_numpy(np.zeros((1, hp.n_mels, 1), np.float32))
+    # print(zeros.shape)
     Y = zeros
     A = None
 
-    for t in range(hp.max_T):
+    # for t in range(hp.max_T):
+    while True:
         _, Y_t, A = text2mel(L, Y, monotonic_attention=True)
+        # print(Y_t.shape, A.shape)
         Y = torch.cat((zeros, Y_t), -1)
         _, attention = torch.max(A[0, :, -1], 0)
         attention = attention.item()
@@ -65,5 +70,6 @@ if __name__ == "__main__":
     _, Z = ssrn(Y)
 
     Z = Z.cpu().detach().numpy()
+    # print(Z[0, :, :].T.shape)
     save_to_wav(Z[0, :, :].T, output_path)
     print('Done!')

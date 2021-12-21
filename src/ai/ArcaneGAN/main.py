@@ -123,7 +123,11 @@ if __name__ == "__main__":
     if args.url == '':
         print('Need url or streamer name!')
         exit()
-        
+
+    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
+    output_path = f"{root_path}{args.outdir}/{args.filename}"
+
+    print("start")    
     mtcnn = MTCNN(image_size=args.size, margin=80)
 
     means = [0.485, 0.456, 0.406]
@@ -139,15 +143,14 @@ if __name__ == "__main__":
     version = '0.3' #@param ['0.1','0.2']
     model_path = f'{project_path}/ArcaneGANv{version}.jit' 
 
-    root_path = '/'.join(os.path.abspath(os.getcwd()).split('/')[:-1])
-    output_path = f"{root_path}{args.outdir}/{args.filename}"
-
     model = torch.jit.load(model_path).eval().cuda()
     
     response = requests.get(args.url, stream = True)
     img = Image.open(BytesIO(response.content)).convert('RGB') 
     img = ImageOps.fit(img, (args.size, args.size), centering=(0.5, 0.5))
 
-    process(output_path,mtcnn,model,img)
-    
+    img = scale_by_face_size(img, mtcnn, target_face=300, max_res=1_500_000, max_upscale=2)
+    res = proc_pil_img(img, model)
+    out = np.concatenate([img, res], axis=1)
+    cv2.imwrite(output_path, cv2.cvtColor(out, cv2.COLOR_BGR2RGB))
     print("Done!")

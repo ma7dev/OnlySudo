@@ -9,3 +9,5 @@ ca-certificate.crt
 package-lock.json
 *.pth
 __pycache__
+glide_model_cache
+*onnx

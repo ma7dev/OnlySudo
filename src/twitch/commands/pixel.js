@@ -1,6 +1,6 @@
 require("dotenv").config({ path: "../../../.env" });
 
-const { makeid } = require("../utils");
+const { makeid } = require("../../utils");
 const { postRequest } = require("../../api/server");
 
 module.exports = {
